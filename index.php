@@ -1,10 +1,11 @@
 <html lang = "ru">
 
 <head>
-	<link rel="stylesheet" type ="text/css" href ="style.css">
+	<link rel="stylesheet" type ="text/css" href ="./css/style.css">
 	<link href="https://fonts.googleapis.com/css2?family=El+Messiri:wght@100;200;300;400;500;600;700&family=Inter:wght@100;200;300;400;500;600&display=swap" rel="stylesheet">
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<title>Вязьма</title>
 </head>
 <body> 
 
@@ -63,7 +64,7 @@
 		  	</form></div>');
 	 	}
 
-	$db = mysqli_connect("127.0.0.1:55555", "root", "", "lab");
+	$db = mysqli_connect("127.0.0.1", "root", "1234567890", "db_vyazma");
 
 	//  Header
 	$sqltext="select etitle, rtitle from pages order by so";
@@ -102,18 +103,15 @@
 	if ($r = mysqli_query($db, $sqltext)) {
 	  	if($i = mysqli_fetch_array($r)) {
 
-			if(!strripos($i['content'],'.php')) {
-		  		print($i['content']);
-		  	}
-		  	else {
-		  		print('
+			if($i['etitle'] != 'home') {
+				print('
 					<div class="h1">
 						<div class="lilRect"></div>
 						<h1 class="text">'.$i['rtitle'].'</h1>
 						<div class="lilRect" id="reverse"></div>
 					</div>');
-		  		include($i['content']);
 		  	}
+		  		include($i['content']);
 		}
 		else {
 		  	print('Такой страницы нет!');
